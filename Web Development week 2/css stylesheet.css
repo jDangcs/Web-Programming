@@ -1,0 +1,57 @@
+/*
+    Corn silk is #FFF8DC
+    dimgray is #696969
+    navy is #000080
+    darkgoldenrod is #b8860b
+    steelblue is #4682b4
+    cadetblue is #5f9ea0
+    blueviolet is #8a2be2
+    chartreuse is #7fff00
+    cornflowerblue is #6495ed
+*/
+body {
+font-family: 'Times New Roman', cursive , arial;
+background-color: cornsilk;
+color: dimgray;
+margin-left: 10%;
+margin-right: 10%;
+text-align: center;
+    }
+/*
+    margin-left just determines the margins of where the words start.
+    The space between the left edge of the browser and the content.
+    Same thing for the margin-right but instead its with the right edge
+    text-align are just where the text is. center means the text is cetnered.
+*/
+h1,h2 {
+    font-family: Verdana,Arial,sans-serif;
+    color: navy;
+    text-align: center;
+    font-weight: bold;
+    }
+
+#pageTitle {font-size: 40px;
+    font-weight: bolder;
+    }
+
+p {
+    font-size: 18px;
+    color: darkgoldenrod;
+    text-align: left;    
+}
+
+.intro {
+    font-style: italic;
+    color:steelblue;
+}
+
+ul.social-link li a {
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+a:link {color: cadetblue;}
+a:visited {color: blueviolet;}
+a:hover {color: chartreuse;}
+a:active {color: cornflowerblue;}
