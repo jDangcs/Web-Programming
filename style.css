@@ -1,0 +1,220 @@
+/*
+styles.css
+External style sheet for the Features page.
+
+THEMING: every color below is a CSS variable (custom property).
+- :root: holds the default LIGHT theme (your original colors).
+- html.night: redefines the same variables for the alternate NIGHT theme.
+- script.js adds/removes the "night" class on <html> to switch themes.
+Because every rule uses var(--name), no other rule needs to change.
+*/
+
+/*light mode*/
+:root {
+--page-bg: #f4f1ea;          /* area behind the container */
+--surface: #fffdf8;          /* container + header background */
+--text: #1b1b1b;             /* main text */
+--text-muted: #5a5a5a;       /* tagline */
+--text-faint: #6f6a5e;       /* menu title + footer text */
+--accent: #c65d2e;           /* the single accent color */
+--border-strong: #1b1b1b;    /* container outline */
+--border-soft: #d8d2c4;      /* dividers between page areas */
+--rule: #e4ddcb;             /* rule under main headings */
+--sidebar-bg: #efe9db;       /* menu + footer background */
+--menu-hover-bg: #e3dcc9;    /* menu link hover/focus background */
+--card-bg: #fbf9f3;          /* feature cards */
+--card-border: #b7ac93;      /* dashed card outline */
+}
+
+/*night mode
+Same variable names, new values. Only colors change */
+html.night {
+--page-bg: #121316;
+--surface: #1a1c20;
+--text: #ece7da;
+--text-muted: #b0ab9e;
+--text-faint: #a09b8e;
+--accent: #e8845a;
+--border-strong: #4a4e57;
+--border-soft: #34373e;
+--rule: #34373e;
+--sidebar-bg: #212328;
+--menu-hover-bg: #2c2f36;
+--card-bg: #1f2126;
+--card-border: #5b5f68;
+}
+
+/*
+Reset basics (kept minimal on purpose) */
+*{
+box-sizing: border-box; /* padding & border are now in width */
+}
+
+/*Body: sets inherited defaults */
+body {
+margin: 0;
+font-family: "Courier New", Courier, monospace; /* body font: everything inside inherits this */
+background-color: var(--page-bg);
+color: var(--text);
+line-height: 1.5;
+/* fade colors smoothly when the theme switches */
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* #container: the outer box that holds the whole page centered on screen using the "margin: 0 auto" trick
+*/
+#container {
+width: 1020px;  /* fixed width, like the example on slide 3 */
+max-width: 92%; /* ...but still shrink gracefully on small screens */
+margin: 0 auto; /* centers the container horizontally */
+background-color: var(--surface);
+border: 1px solid var(--border-strong);  /* border shorthand: width / style / color */
+transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* #header
+Page title area. Its background color comes from the theme variable,
+so it switches with the rest of the page. */
+#header {
+padding: 32px 40px;
+border-bottom: 3px solid var(--accent); /* single accent color used sparingly */
+background-color: var(--surface);
+}
+
+#header h1 {
+margin: 0 0 6px 0;
+font-size: 2rem;
+letter-spacing: 0.5px;
+}
+
+#header p.tagline {
+margin: 0;
+color: var(--text-muted);
+}
+
+/*Layout row: #menu + #main side by side
+FLEXBOX LAYOUT (the modern successor to the float-based column layout: "#column1 {float:left; width:200px;} #column2 {float:left; width:200px;}").
+Using display:flex on the wrapping row instead of floating each column avoids the "container too short" bug and removes the need for a manual clearfix.
+ */
+#page-body {
+display: flex;  /* lay #menu and #main out horizontally */
+align-items: stretch;   /* both columns share the same height */
+}
+
+/* #menu: the navigation column */
+#menu {
+flex: 0 0 220px;    /* fixed 220px, does not grow or shrink */
+padding: 28px 24px;
+border-right: 1px solid var(--border-soft); /* separates menu from main content */
+background-color: var(--sidebar-bg);
+}
+
+#menu h2 {
+margin-top: 0;
+font-size: 0.85rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: var(--text-faint);
+}
+
+#menu ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+#menu li {
+margin-bottom: 4px;
+}
+
+#menu a {
+display: block;
+padding: 8px 10px;
+color: var(--text);
+text-decoration: none;
+border-left: 3px solid transparent; /* reserves space so the hover state doesn't shift layout */
+}
+
+#menu a:hover,
+#menu a:focus {
+border-left: 3px solid var(--accent);
+background-color: var(--menu-hover-bg);
+}
+
+/* Theme toggle button (sits at the bottom of the menu).
+Styled to match the page: same font, thin border, accent on hover/focus. */
+#theme_toggler {
+display: block;
+width: 100%;
+margin-top: 24px;
+padding: 8px 10px;
+font: inherit;                       /* use the page's Courier font */
+color: var(--text);
+background: transparent;
+border: 1px solid var(--border-strong);
+cursor: pointer;
+text-align: left;
+}
+
+#theme_toggler:hover,
+#theme_toggler:focus-visible {
+border-color: var(--accent);
+background-color: var(--menu-hover-bg);
+}
+
+/*#main: the content column*/
+#main {
+flex: 1 1 auto; /* fills the remaining space next to #menu */
+padding: 32px 40px;
+}
+
+#main h2 {
+margin-top: 0;
+border-bottom: 2px solid var(--rule);
+padding-bottom: 8px;
+}
+
+#main .card {
+/* Demonstrates the box model directly: content + padding + border + margin */
+padding: 16px 18px;
+margin-bottom: 16px;
+border: 1px dashed var(--card-border);
+background-color: var(--card-bg);
+}
+
+/* #footer
+Full-width footer,"#footer {width:100%; padding:0 10px;}"
+ */
+#footer {
+clear: both;/* leftover safety net in case any child still floats */
+width: 100%;
+padding: 18px 40px;
+text-align: center;
+font-size: 0.85rem;
+color: var(--text-faint);
+border-top: 1px solid var(--border-soft);
+background-color: var(--sidebar-bg);
+}
+
+/* Footer link: accent color works in both themes */
+#footer a {
+color: var(--accent);
+}
+
+/* Small screens: stack menu above main instead of side by side */
+@media (max-width: 640px) {
+#page-body {
+flex-direction: column; /* flexbox makes this a one-line change */
+}
+
+#menu {
+flex: 0 0 auto;
+border-right: none;
+border-bottom: 1px solid var(--border-soft);
+}
+}
+
+/* Respect visitors who prefer reduced motion: skip the color fade */
+@media (prefers-reduced-motion: reduce) {
+body, #container { transition: none; }
+}
